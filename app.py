@@ -27,6 +27,7 @@ app = Flask(__name__)
 #config bbdd
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///melopongo.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key='\xf9\xef*`\xe1\x1b\xca\x7f\x9c?\xa3\x00C\xb9\xdb\xfew\x10\xedI\xed\x03\xeb\x9e'
 db.init_app(app)
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
