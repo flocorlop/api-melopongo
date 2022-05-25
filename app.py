@@ -1,12 +1,6 @@
-from datetime import datetime
-from turtle import title
 from flask import Flask, jsonify, request
-import json
 from logging import exception
 from Models import db, Outfits, Profiles
-from sqlalchemy import func
-from sqlalchemy import select
-from sqlalchemy import table, column
 
 #region imports predictions:
 import base64
@@ -14,10 +8,7 @@ import numpy as np
 import io
 from PIL import Image
 import keras, tensorflow as tf
-from keras import backend as K
-from keras.models import Sequential
 from keras.models import load_model
-from keras.preprocessing.image import ImageDataGenerator
 from keras.preprocessing.image import img_to_array
 import re
 #endregion
@@ -271,5 +262,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80)
 
