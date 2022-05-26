@@ -23,14 +23,13 @@ db.init_app(app)
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
 def checkMail(email):
- 
     # pass the regular expression
     # and the string into the fullmatch() method
     if(re.fullmatch(regex, email)):
         print("Valid Email")
- 
     else:
         print("Invalid Email")
+
 def checkPhoto(ph) :
     print('check photo')
     
@@ -262,5 +261,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=4000)
 
