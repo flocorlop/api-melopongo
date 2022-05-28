@@ -40,14 +40,14 @@ def ping():
 
 #region Profiles
 # Get Data Routes
-@app.route('/profiles')
+@app.route('/api/profiles')
 def getProfiles():
     profiles = Profiles.query.filter_by(visible=1).all()
     profiles = [o.serialize() for o in profiles]
     return jsonify(profiles), 200
 
 
-@app.route('/profiles/<string:username>')
+@app.route('/api/profiles/<string:username>')
 def getProfile(username):
     try:
         profile = Profiles.query.filter_by(username=username, visible=1).first()
@@ -59,7 +59,7 @@ def getProfile(username):
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un error"}), 500 
 
-@app.route('/profiles/id/<string:id>')
+@app.route('/api/profiles/id/<string:id>')
 def getProfileId(id):
     try:
         profile = Profiles.query.filter_by(id=id,visible=1).first()
@@ -73,7 +73,7 @@ def getProfileId(id):
 
 
 # Create Data Routes
-@app.route('/profiles/new-profile/save', methods=["POST"])
+@app.route('/api/profiles/new-profile/save', methods=["POST"])
 def addProfile():
     try:
         dataReceived = request.get_json(force=True)
@@ -94,7 +94,7 @@ def addProfile():
         return jsonify({"msg": "Error al guardar perfil"}), 500
 
 # Update Data Route
-@app.route('/profiles/edit/save', methods=["POST"])
+@app.route('/api/profiles/edit/save', methods=["POST"])
 def editProfileSave():
     try:
         dataReceived = request.get_json(force=True)
@@ -116,7 +116,7 @@ def editProfileSave():
         return jsonify({"msg": "Error al guardar perfil"}), 500
 
 # DELETE Data Route
-@app.route('/profiles/delete/<string:id>',methods=['DELETE'])
+@app.route('/api/profiles/delete/<string:id>',methods=['DELETE'])
 def deleteProfile(id):
     try:
         profiles = Profiles.query.filter_by(visible=1).all()
@@ -138,13 +138,13 @@ def deleteProfile(id):
 
 
 #region Outfits
-@app.route("/outfits")
+@app.route("/api/outfits")
 def getOutfits():
     outfits = Outfits.query.filter_by(visible=1).all()
     outfits = [o.serialize() for o in outfits]
     return jsonify(outfits), 200
 
-@app.route('/outfits/<string:id>',methods=['GET'])
+@app.route('/api/outfits/<string:id>',methods=['GET'])
 def getOutfit(id):
     try:
         outfit = Outfits.query.filter_by(id=id, visible=1).first()
@@ -157,7 +157,7 @@ def getOutfit(id):
         return jsonify({"msg": "Ha ocurrido un error"}), 500            
         
 
-@app.route('/outfits/delete/<string:id>',methods=['DELETE'])
+@app.route('/api/outfits/delete/<string:id>',methods=['DELETE'])
 def deleteOutfit(id):
     try:
         outfits = Outfits.query.filter_by(visible=1).all()
@@ -176,7 +176,7 @@ def deleteOutfit(id):
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Error al borrar el outfit"}), 500            
 
-@app.route("/outfits/new-outfit/save", methods=["POST"])
+@app.route("/api/outfits/new-outfit/save", methods=["POST"])
 def saveOutfit():
     try:
         dataReceived = request.get_json(force=True)
@@ -195,7 +195,7 @@ def saveOutfit():
         exception("\n[SERVER]: Error adding outfit. Log: \n")
         return jsonify({"msg": "Error al guardar outfit"}), 500
 
-@app.route("/outfits/edit/save", methods=["POST"])
+@app.route("/api/outfits/edit/save", methods=["POST"])
 def saveEditOutfit():
     try:
         dataReceived = request.get_json(force=True)
@@ -233,7 +233,7 @@ def preprocess_image(image, target_size):
 print ("Loading keras model")
 get_model()
 
-@app.route("/outfits/new-outfit/predict", methods=["POST"])
+@app.route("/api/outfits/new-outfit/predict", methods=["POST"])
 def predict():
     datasent = request.get_json(force=True)
     encoded = datasent[0]['image_encoded']
